@@ -15,7 +15,7 @@ class OrderPage(BasePage):
 
     # Sign In
 
-    def verify_success_sign_in(self, login):
-        """Verify correct Sign In"""
-        assert self.get_element_text(self.header_constants.ACCOUNT_USERNAME_XPATH.format(login_option=login)) == login, \
-            f"Actual message: {self.get_element_text(self.header_constants.ACCOUNT_USERNAME_XPATH)}"
+    # def verify_success_sign_in(self, login):
+    #     """Verify correct Sign In"""
+    #     assert self.get_element_text(self.header_constants.ACCOUNT_USERNAME_XPATH.format(login_option=login)) == login, \
+    #         f"Actual message: {self.get_element_text(self.header_constants.ACCOUNT_USERNAME_XPATH)}"
