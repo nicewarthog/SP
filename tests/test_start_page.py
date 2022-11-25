@@ -81,12 +81,13 @@ class TestStartPage:
         """
 
         # Log in as user
-        basic_user = User(login="seopay-qa-ceo", password="uGwql6dqvC9fAFwC")
-        open_order_page = open_start_page.sign_in_with_button(basic_user)
+        basic_user = User()
+        basic_user.random_correct_user(login=basic_user.login, password=basic_user.password)
+        open_header = open_start_page.sign_in_with_button(basic_user)
         self.log.info(f"Order page is opened")
 
         # Verify the username in header
-        open_order_page.verify_success_sign_in(basic_user.login)
+        open_header.verify_success_sign_in(basic_user.login)
         self.log.info(f"Account name {basic_user.login} was verified, Sign In is successfully")
 
     def test_correct_sign_in_with_enter(self, open_start_page):
@@ -100,12 +101,13 @@ class TestStartPage:
         """
 
         # Log in as user
-        basic_user = User(login="seopay-qa-ceo", password="uGwql6dqvC9fAFwC")
-        open_order_page = open_start_page.sign_in_with_enter(basic_user)
+        basic_user = User()
+        basic_user.random_correct_user(login=basic_user.login, password=basic_user.password)
+        open_header = open_start_page.sign_in_with_button(basic_user)
         self.log.info(f"Order page is opened")
 
         # Verify the username in header
-        open_order_page.verify_success_sign_in(basic_user.login)
+        open_header.verify_success_sign_in(basic_user.login)
         self.log.info(f"Account name {basic_user.login} was verified, Sign In is successfully")
 
     def test_sign_in_with_spaces(self, open_start_page):
@@ -121,15 +123,14 @@ class TestStartPage:
 
         # Fill Login and Password with spaces before and after them
         basic_user = User(login=" seopay-qa-ceo ", password=" uGwql6dqvC9fAFwC ")
-        open_order_page = open_start_page.sign_in_with_button(basic_user)
+        open_header = open_start_page.sign_in_with_button(basic_user)
         self.log.info(f"Order page is opened")
 
         # Verify the username in header
-        open_order_page.verify_success_sign_in(basic_user.login.replace(" ", ""))
+        open_header.verify_success_sign_in(basic_user.login.replace(" ", ""))
         self.log.info(f"Account name {basic_user.login} was verified, Sign In is successfully")
 
-        # Incorrect Sign In
-
+    # Incorrect Sign In
     def test_empty_login_with_focus(self, open_start_page):
         """
         Fixture:
@@ -214,7 +215,7 @@ class TestStartPage:
 
         # Log in with incorrect login
         basic_user = User()
-        basic_user.random_user_data(login=basic_user.login, password="uGwql6dqvC9fAFwC")
+        basic_user.random_incorrect_user(login=basic_user.login, password="uGwql6dqvC9fAFwC")
         open_start_page.sign_in_with_button(basic_user)
 
         # Verify message for incorrect credentials
@@ -233,7 +234,7 @@ class TestStartPage:
 
         # Log in with incorrect password
         basic_user = User()
-        basic_user.random_user_data(login="seopay-qa-ceo", password=basic_user.password)
+        basic_user.random_incorrect_user(login="seopay-qa-ceo", password=basic_user.password)
         open_start_page.sign_in_with_button(basic_user)
 
         # Verify message for incorrect credentials
