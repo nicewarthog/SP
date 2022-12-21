@@ -89,3 +89,9 @@ class StartPage(BasePage):
         assert self.get_element_text(
             self.start_page_constants.INCORRECT_CREDENTIALS_MESSAGE_XPATH) == self.start_page_constants.INCORRECT_CREDENTIALS_MESSAGE_TEXT, \
             f"Actual message: {self.get_element_text(self.start_page_constants.INCORRECT_CREDENTIALS_MESSAGE_XPATH)}"
+
+    # Correct Sign Out
+
+    def refresh_page(self):
+        """Refresh page"""
+        self.driver.refresh()
