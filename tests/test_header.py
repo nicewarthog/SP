@@ -1,10 +1,31 @@
 import logging
 
+from pages.utils import User
+
 
 class TestHeader:
     log = logging.getLogger("Header")
 
     # Log Out
+
+    def test_verify_sign_out_button_elements(self, sign_in_with_basic_user, open_start_page):
+        """
+        Fixture:
+        - Open Start Page
+        - Sign In with basic user
+
+        Steps:
+        - Open form with Sign Out button
+        - Verify the Sign Out button icon and title are correct
+        """
+
+        # Click account logo
+        open_start_page.header.click_account_logo()
+
+        # Verify the Sign Out button icon and title are correct
+        open_start_page.header.verify_sign_out_button_elements()
+        self.log.info("Sign Out button elements are correct")
+
     def test_sign_out(self, sign_in_with_basic_user, open_start_page):
         """
         Fixture:
@@ -24,7 +45,7 @@ class TestHeader:
         open_start_page.verify_h3()
         self.log.info("Sign Out is successfully")
 
-    def test_sign_out_after_refresh(self, sign_in_with_basic_user, open_start_page):
+    def test_sign_out_and_refresh(self, sign_in_with_basic_user, open_start_page):
         """
         Fixture:
         - Open Start Page
