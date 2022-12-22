@@ -62,7 +62,7 @@ class TestHeader:
         Steps:
         - Open form with Sign Out button
         - Click Sign Out button
-        - Verify successful Sign Out
+        - Verify successful Sign Out from account
         - Sign In with another user credentials and verify success
         """
 

@@ -93,5 +93,5 @@ class StartPage(BasePage):
     # Correct Sign Out
 
     def refresh_page(self):
-        """Refresh page"""
+        """Refresh pag"""
         self.driver.refresh()
