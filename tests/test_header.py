@@ -1,7 +1,5 @@
 import logging
 
-from pages.utils import User
-
 
 class TestHeader:
     log = logging.getLogger("Header")
