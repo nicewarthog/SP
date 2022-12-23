@@ -83,8 +83,11 @@ class TestStartPage:
         # Log in as user
         basic_user = User()
         basic_user.random_correct_user(login=basic_user.login, password=basic_user.password)
-        open_header = open_start_page.sign_in_with_button(basic_user)
-        self.log.info(f"Order page is opened")
+        open_start_page.sign_in_with_button(basic_user)
+
+        # Move to the Header
+        open_header = open_start_page.from_start_page_to_header()
+        self.log.info(f"Header is opened")
 
         # Verify the username in header
         open_header.verify_success_sign_in(basic_user.login)
@@ -103,8 +106,11 @@ class TestStartPage:
         # Log in as user
         basic_user = User()
         basic_user.random_correct_user(login=basic_user.login, password=basic_user.password)
-        open_header = open_start_page.sign_in_with_button(basic_user)
-        self.log.info(f"Order page is opened")
+        open_start_page.sign_in_with_button(basic_user)
+
+        # Move to the Header
+        open_header = open_start_page.from_start_page_to_header()
+        self.log.info(f"Header is opened")
 
         # Verify the username in header
         open_header.verify_success_sign_in(basic_user.login)
@@ -123,8 +129,11 @@ class TestStartPage:
 
         # Fill Login and Password with spaces before and after them
         basic_user = User(login=" seopay-qa-ceo ", password=" uGwql6dqvC9fAFwC ")
-        open_header = open_start_page.sign_in_with_button(basic_user)
-        self.log.info(f"Order page is opened")
+        open_start_page.sign_in_with_button(basic_user)
+
+        # Move to the Header
+        open_header = open_start_page.from_start_page_to_header()
+        self.log.info(f"Header is opened")
 
         # Verify the username in header
         open_header.verify_success_sign_in(basic_user.login.replace(" ", ""))

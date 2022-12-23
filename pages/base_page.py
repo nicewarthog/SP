@@ -18,6 +18,14 @@ class BasePage:
         except selenium.common.exceptions.NoSuchElementException:
             return False
 
+    def is_not_exist(self, xpath, by=By.XPATH):
+        """Check that element not exists"""
+        try:
+            self.driver.find_element(by=by, value=xpath)
+            return False
+        except selenium.common.exceptions.NoSuchElementException:
+            return True
+
     def wait_until_displayed(self, xpath):
         """Wait until element is displayed"""
         return self.waiter.until(method=expected_conditions.visibility_of_element_located((By.XPATH, xpath)),
