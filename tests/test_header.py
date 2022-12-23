@@ -8,7 +8,7 @@ class TestHeader:
 
     # Log Out
 
-    def test_verify_sign_out_button_elements(self, sign_in_with_basic_user, open_start_page):
+    def test_verify_sign_out_button_elements(self, sign_in_analyst, open_start_page):
         """
         Fixture:
         - Open Start Page
@@ -26,7 +26,7 @@ class TestHeader:
         open_start_page.header.verify_sign_out_button_elements()
         self.log.info("Sign Out button elements are correct")
 
-    def test_sign_out(self, sign_in_with_basic_user, open_start_page):
+    def test_sign_out(self, sign_in_analyst, open_start_page):
         """
         Fixture:
         - Open Start Page
@@ -45,7 +45,7 @@ class TestHeader:
         open_start_page.verify_h3()
         self.log.info("Sign Out is successfully")
 
-    def test_sign_out_and_refresh(self, sign_in_with_basic_user, open_start_page):
+    def test_sign_out_and_refresh(self, sign_in_analyst, open_start_page):
         """
         Fixture:
         - Open Start Page
@@ -72,7 +72,7 @@ class TestHeader:
         open_start_page.verify_h3()
         self.log.info("Sign Out is successfully")
 
-    def test_sign_out_and_sign_in_with_new_user(self, sign_in_with_basic_user, open_start_page):
+    def test_sign_out_and_sign_in_with_new_user(self, sign_in_analyst, open_start_page):
         """
         Fixture:
         - Open Start Page
@@ -94,8 +94,9 @@ class TestHeader:
         open_start_page.refresh_page()
 
         basic_user = User(login="seopay-qa-analyst", password="seopay-qa-analyst")
-        open_header = open_start_page.sign_in_with_button(basic_user)
-        self.log.info(f"Order page is opened")
+        open_start_page.sign_in_with_button(basic_user)
+        open_header = open_start_page.from_start_page_to_header()
+        self.log.info(f"Header is opened")
 
         # Verify the username in header
         open_header.verify_success_sign_in(basic_user.login)
