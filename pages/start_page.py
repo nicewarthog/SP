@@ -12,8 +12,12 @@ class StartPage(BasePage):
         super().__init__(driver)
         from constants.start_page import StartPageConst
         self.start_page_constants = StartPageConst
+        # from constants.sidebar import SidebarConst
+        # self.sidebar_constants = SidebarConst
         from pages.header import Header
         self.header = Header(self.driver)
+        from pages.sidebar import Sidebar
+        self.sidebar = Sidebar(self.driver)
 
     # Start Page elements
 
