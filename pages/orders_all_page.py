@@ -13,8 +13,17 @@ class OrdersAllPage(BasePage):
         self.orders_all_constants = OrdersAllConst
         # from pages.header import Header
         # self.header = Header(self.driver)
+        from pages.sidebar import Sidebar
+        self.sidebar = Sidebar(self.driver)
+        from pages.start_page import StartPage
+        self.start_page = StartPage(self.driver)
 
     # Total tables - sum in EUR
+
+    def verify_orders_all_page_h1(self):
+        """Verify the Orders All Page h1 has correct text"""
+        assert self.get_element_text(self.orders_all_constants.H1_XPATH) == self.orders_all_constants.H1_TEXT, \
+            f"Actual message: {self.get_element_text(self.orders_all_constants.H1_XPATH)}"
 
     def verify_sum_in_eur_eur(self):
         all_orders_sum_in_eur_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_EUR_EUR_XPATH)

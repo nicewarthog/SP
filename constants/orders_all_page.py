@@ -1,4 +1,8 @@
 class OrdersAllConst:
+    # Page elements
+    H1_TEXT = "Все заказы"
+    H1_XPATH = ".//h1[contains(text(),'Все заказы')]"
+
     # Total Tables - sum in EUR
     TOTAL_IN_EUR_EUR_XPATH = ".//div[@class='card-body'][h4[text()='Сумма в EUR']]//" \
                              "li[@class='report-total__list-item ng-star-inserted']/span[contains(text(),'EUR')]/following-sibling::span"
