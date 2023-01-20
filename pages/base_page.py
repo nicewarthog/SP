@@ -26,8 +26,14 @@ class BasePage:
         except selenium.common.exceptions.NoSuchElementException:
             return True
 
+    def wait_until_all_presented(self, xpath):
+        """Checking that an element is present on the DOM of a page. This does not necessarily mean that the element is visible"""
+        return self.waiter.until(method=expected_conditions.presence_of_all_elements_located((By.XPATH, xpath)),
+                                 message=f"XPATH '{xpath}' is not presented or cannot be found")
+
     def wait_until_displayed(self, xpath):
-        """Wait until element is displayed"""
+        """Checking that an element is present on the DOM of a page and visible.
+         Visibility means that the element is not only displayed  but also has a height and width that is greater than 0"""
         return self.waiter.until(method=expected_conditions.visibility_of_element_located((By.XPATH, xpath)),
                                  message=f"XPATH '{xpath}' is not displayed or cannot be found")
 
