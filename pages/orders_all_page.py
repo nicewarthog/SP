@@ -11,142 +11,80 @@ class OrdersAllPage(BasePage):
         super().__init__(driver)
         from constants.orders_all_page import OrdersAllConst
         self.orders_all_constants = OrdersAllConst
-        # from pages.header import Header
-        # self.header = Header(self.driver)
         from pages.sidebar import Sidebar
         self.sidebar = Sidebar(self.driver)
         from pages.start_page import StartPage
         self.start_page = StartPage(self.driver)
 
-    # Total tables - sum in EUR
+    # _________________________________Elements_________________________________
 
     def verify_orders_all_page_h1(self):
         """Verify the Orders All Page h1 has correct text"""
         assert self.get_element_text(self.orders_all_constants.H1_XPATH) == self.orders_all_constants.H1_TEXT, \
             f"Actual message: {self.get_element_text(self.orders_all_constants.H1_XPATH)}"
 
-    def verify_sum_in_eur_eur(self):
-        all_orders_sum_in_eur_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_EUR_EUR_XPATH)
-        one_order_sum_in_eur_eur = [Decimal(sum_in_eur_eur.text) for sum_in_eur_eur in all_orders_sum_in_eur_eur]
-        total_in_eur_eur = self.get_element_text(self.orders_all_constants.TOTAL_IN_EUR_EUR_XPATH)
-        assert sum(one_order_sum_in_eur_eur) == Decimal(
-            total_in_eur_eur), f"Actual all EUR orders sum in EUR {sum(one_order_sum_in_eur_eur)}, total EUR sum in EUR {Decimal(total_in_eur_eur)}"
-        self.log.info(f"All EUR orders sum in EUR - {sum(one_order_sum_in_eur_eur)} = total EUR sum in EUR - {Decimal(total_in_eur_eur)}")
+    # _________________________________Total tables - sum in EUR_________________________________
 
-    def verify_sum_in_eur_uah(self):
-        all_orders_sum_in_eur_uah = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_EUR_UAH_XPATH)
-        one_order_sum_in_eur_uah = [Decimal(sum_in_eur_uah.text) for sum_in_eur_uah in all_orders_sum_in_eur_uah]
-        total_in_eur_uah = self.get_element_text(self.orders_all_constants.TOTAL_IN_EUR_UAH_XPATH)
-        assert sum(one_order_sum_in_eur_uah) == Decimal(
-            total_in_eur_uah), f"Actual all UAH orders sum in EUR {sum(one_order_sum_in_eur_uah)}, total UAH sum in EUR {Decimal(total_in_eur_uah)}"
-        self.log.info(f"All UAH orders sum in EUR - {sum(one_order_sum_in_eur_uah)} = total UAH sum in EUR - {Decimal(total_in_eur_uah)}")
+    def verify_sum_in_eur_currency_list(self, xpath_total, xpath_list, currency_log):
+        total_in_eur_one_currency = self.get_element_text(xpath=xpath_total)
+        if self.is_exist(xpath=xpath_list):
+            all_orders_sum_in_eur_one_currency = self.wait_until_all_displayed(xpath=xpath_list)
+            one_order_sum_in_eur_one_currency = [Decimal(sum_in_eur_one_currency.text) for sum_in_eur_one_currency in all_orders_sum_in_eur_one_currency]
+            assert sum(one_order_sum_in_eur_one_currency) == Decimal(total_in_eur_one_currency), \
+                f"Actual {currency_log} orders sum in EUR = {sum(one_order_sum_in_eur_one_currency)}, total value for {currency_log} in EUR = {total_in_eur_one_currency}"
+            self.log.info(
+                f"{currency_log} orders sum in EUR - {sum(one_order_sum_in_eur_one_currency)} = total {currency_log} sum in EUR - {total_in_eur_one_currency}")
+        else:
+            assert int(total_in_eur_one_currency) == 0
+            self.log.info(f"The list has no orders in EUR. Total {currency_log} sum in EUR = {total_in_eur_one_currency}")
 
-    def verify_sum_in_eur_gbp(self):
-        all_orders_sum_in_eur_gbp = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_EUR_GBP_XPATH)
-        one_order_sum_in_eur_gbp = [Decimal(sum_in_eur_gbp.text) for sum_in_eur_gbp in all_orders_sum_in_eur_gbp]
-        total_in_eur_gbp = self.get_element_text(self.orders_all_constants.TOTAL_IN_EUR_GBP_XPATH)
-        assert sum(one_order_sum_in_eur_gbp) == Decimal(
-            total_in_eur_gbp), f"Actual all GBP orders sum in EUR {sum(one_order_sum_in_eur_gbp)}, total GBP sum in EUR {Decimal(total_in_eur_gbp)}"
-        self.log.info(f"All GBP orders sum in EUR - {sum(one_order_sum_in_eur_gbp)} = total GBP sum in EUR - {Decimal(total_in_eur_gbp)}")
-
-    def verify_sum_in_eur_rub(self):
-        all_orders_sum_in_eur_rub = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_EUR_RUB_XPATH)
-        one_order_sum_in_eur_rub = [Decimal(sum_in_eur_rub.text) for sum_in_eur_rub in all_orders_sum_in_eur_rub]
-        total_in_eur_rub = self.get_element_text(self.orders_all_constants.TOTAL_IN_EUR_RUB_XPATH)
-        assert sum(one_order_sum_in_eur_rub) == Decimal(
-            total_in_eur_rub), f"Actual all RUB orders sum in EUR {sum(one_order_sum_in_eur_rub)}, total RUB sum in EUR {Decimal(total_in_eur_rub)}"
-        self.log.info(f"All RUB orders sum in EUR - {sum(one_order_sum_in_eur_rub)} = total RUB sum in EUR - {Decimal(total_in_eur_rub)}")
-
-    def verify_sum_in_eur_usd(self):
-        all_orders_sum_in_eur_usd = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_EUR_USD_XPATH)
-        one_order_sum_in_eur_usd = [Decimal(sum_in_eur_usd.text) for sum_in_eur_usd in all_orders_sum_in_eur_usd]
-        total_in_eur_usd = self.get_element_text(self.orders_all_constants.TOTAL_IN_EUR_USD_XPATH)
-        assert sum(one_order_sum_in_eur_usd) == Decimal(
-            total_in_eur_usd), f"Actual all USD orders sum in EUR {sum(one_order_sum_in_eur_usd)}, total USD sum in EUR {Decimal(total_in_eur_usd)}"
-        self.log.info(f"All USD orders sum in EUR - {sum(one_order_sum_in_eur_usd)} = total USD sum in EUR - {Decimal(total_in_eur_usd)}")
-
-    def verify_sum_in_eur_usdt(self):
-        all_orders_sum_in_eur_usdt = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_EUR_USDT_XPATH)
-        one_order_sum_in_eur_usdt = [Decimal(sum_in_eur_usdt.text) for sum_in_eur_usdt in all_orders_sum_in_eur_usdt]
-        total_in_eur_usdt = self.get_element_text(self.orders_all_constants.TOTAL_IN_EUR_USDT_XPATH)
-        assert sum(one_order_sum_in_eur_usdt) == Decimal(
-            total_in_eur_usdt), f"Actual all USDT orders sum in EUR {sum(one_order_sum_in_eur_usdt)}, total USDT sum in EUR {Decimal(total_in_eur_usdt)}"
-        self.log.info(f"All USDT orders sum in EUR - {sum(one_order_sum_in_eur_usdt)} = total USDT sum in EUR - {Decimal(total_in_eur_usdt)}")
-
-    def verify_total_sum_in_eur_for_list(self):
-        all_orders_sum_in_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_GENERAL_SUM_IN_EUR_XPATH)
-        one_order_sum_in_eur = [Decimal(sum_in_eur.text) for sum_in_eur in all_orders_sum_in_eur]
-        total_sum_in_eur = self.get_element_text(self.orders_all_constants.TOTAL_ALL_CURRENCIES_SUM_XPATH)
-        assert sum(one_order_sum_in_eur) == Decimal(
-            total_sum_in_eur), f"Actual all orders sum in EUR {sum(one_order_sum_in_eur)}, total sum in EUR {Decimal(total_sum_in_eur)}"
-        self.log.info(f"All orders sum in EUR - {sum(one_order_sum_in_eur)} = total sum in EUR - {Decimal(total_sum_in_eur)}")
-
-    def verify_sum_all_totals_for_currency(self):
-        all_totals_sum_in_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.TOTAL_ALL_CURRENCIES_VALUES_XPATH)
+    def verify_sum_in_eur_currency_totals(self):
+        all_totals_sum_in_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.TOTAL_IN_EUR_TABLE_VALUES_XPATH)
         one_total_sum_in_eur = [Decimal(total_in_eur.text) for total_in_eur in all_totals_sum_in_eur]
-        total_sum_in_eur = self.get_element_text(self.orders_all_constants.TOTAL_ALL_CURRENCIES_SUM_XPATH)
+        total_sum_in_eur = self.get_element_text(self.orders_all_constants.TOTAL_IN_EUR_ALL_XPATH)
         assert sum(one_total_sum_in_eur) == Decimal(
             total_sum_in_eur), f"Actual all totals sum in EUR {sum(one_total_sum_in_eur)}, total sum in EUR {Decimal(total_sum_in_eur)}"
         self.log.info(f"All totals sum in EUR - {sum(one_total_sum_in_eur)} = total sum in EUR - {Decimal(total_sum_in_eur)}")
 
-    # Total tables - sum in currency
+    # _________________________________Total tables - sum in currency_________________________________
 
-    def verify_price_sum_eur(self):
-        all_orders_price_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_EUR_XPATH)
-        one_order_price_eur = [Decimal(price_eur.text[:-4]) for price_eur in all_orders_price_eur]
-        total_price_eur = self.get_element_text(self.orders_all_constants.TOTAL_IN_CURRENCY_EUR_XPATH)
-        assert sum(one_order_price_eur) == Decimal(
-            total_price_eur), f"Actual all orders price - {sum(one_order_price_eur)} EUR, total price - {Decimal(total_price_eur)} currency"
-        self.log.info(f"All orders price - {sum(one_order_price_eur)} EUR = total price - {Decimal(total_price_eur)} EUR")
+    def verify_sum_price_list(self, xpath_total, xpath_list, currency_log):
+        total_price_one_currency = self.get_element_text(xpath=xpath_total)
+        if self.is_exist(xpath=xpath_list):
+            all_orders_price_one_currency = self.wait_until_all_displayed(xpath=xpath_list)
+            one_order_price_one_currency = [Decimal(price_one_currency.text[:-4]) for price_one_currency in all_orders_price_one_currency]
+            assert sum(one_order_price_one_currency) == Decimal(total_price_one_currency), \
+                f"Actual all orders price - {sum(one_order_price_one_currency)} {currency_log}, total price - {total_price_one_currency} {currency_log}"
+            self.log.info(f"All orders price - {sum(one_order_price_one_currency)} {currency_log} = total price - {total_price_one_currency} {currency_log}")
+        else:
+            assert int(total_price_one_currency) == 0
+            self.log.info(f"The list has no orders in {currency_log}. Total price in {currency_log} = {total_price_one_currency}")
 
-    def verify_price_sum_usd(self):
-        all_orders_price_usd = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_USD_XPATH)
-        one_order_price_usd = [Decimal(price_usd.text[:-4]) for price_usd in all_orders_price_usd]
-        total_price_usd = self.get_element_text(self.orders_all_constants.TOTAL_IN_CURRENCY_USD_XPATH)
-        assert sum(one_order_price_usd) == Decimal(
-            total_price_usd), f"Actual all orders price - {sum(one_order_price_usd)} USD, total price - {Decimal(total_price_usd)} USD"
-        self.log.info(f"All orders price - {sum(one_order_price_usd)} USD = total price - {Decimal(total_price_usd)} USD")
+    def verify_sum_price_list_usdt(self):
+        total_price_usdt = self.get_element_text(xpath=self.orders_all_constants.TOTAL_IN_CURRENCY_USDT_XPATH)
+        if self.is_exist(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_USDT_XPATH):
+            all_orders_price_usdt = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_USDT_XPATH)
+            one_order_price_usdt = [Decimal(price_usdt.text[:-5]) for price_usdt in all_orders_price_usdt]
+            assert sum(one_order_price_usdt) == Decimal(total_price_usdt), \
+                f"Actual all orders price - {sum(one_order_price_usdt)} USDT, total price - {total_price_usdt} USDT"
+            self.log.info(f"All orders price - {sum(one_order_price_usdt)} USDT = total price - {total_price_usdt} USDT")
+        else:
+            assert int(total_price_usdt) == 0
+            self.log.info(f"The list has no orders in USDT. Total price in USDT = {total_price_usdt}")
 
-    def verify_price_sum_usdt(self):
-        all_orders_price_usdt = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_USDT_XPATH)
-        one_order_price_usdt = [Decimal(price_usdt.text[:-5]) for price_usdt in all_orders_price_usdt]
-        total_price_usdt = self.get_element_text(self.orders_all_constants.TOTAL_IN_CURRENCY_USDT_XPATH)
-        assert sum(one_order_price_usdt) == Decimal(
-            total_price_usdt), f"Actual all orders price - {sum(one_order_price_usdt)} USDT, total price - {Decimal(total_price_usdt)} USDT"
-        self.log.info(f"All orders price - {sum(one_order_price_usdt)} USDT = total price - {Decimal(total_price_usdt)} USDT")
+    # _________________________________Total tables - sum by teams_________________________________
 
-    def verify_price_sum_uah(self):
-        all_orders_price_uah = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_UAH_XPATH)
-        one_order_price_uah = [Decimal(price_uah.text[:-4]) for price_uah in all_orders_price_uah]
-        total_price_uah = self.get_element_text(self.orders_all_constants.TOTAL_IN_CURRENCY_UAH_XPATH)
-        assert sum(one_order_price_uah) == Decimal(
-            total_price_uah), f"Actual all orders price - {sum(one_order_price_uah)} UAH, total price - {Decimal(total_price_uah)} UAH"
-        self.log.info(f"All orders price - {sum(one_order_price_uah)} UAH = total price - {Decimal(total_price_uah)} UAH")
-
-    def verify_price_sum_gbp(self):
-        all_orders_price_gbp = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_GBP_XPATH)
-        one_order_price_gbp = [Decimal(price_gbp.text[:-4]) for price_gbp in all_orders_price_gbp]
-        total_price_gbp = self.get_element_text(self.orders_all_constants.TOTAL_IN_CURRENCY_GBP_XPATH)
-        assert sum(one_order_price_gbp) == Decimal(
-            total_price_gbp), f"Actual all orders price - {sum(one_order_price_gbp)} GBP, total price - {Decimal(total_price_gbp)} GBP"
-        self.log.info(f"All orders price - {sum(one_order_price_gbp)} GBP = total price - {Decimal(total_price_gbp)} GBP")
-
-    def verify_price_sum_rub(self):
-        all_orders_price_rub = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_RUB_XPATH)
-        one_order_price_rub = [Decimal(price_rub.text[:-4]) for price_rub in all_orders_price_rub]
-        total_price_rub = self.get_element_text(self.orders_all_constants.TOTAL_IN_CURRENCY_RUB_XPATH)
-        assert sum(one_order_price_rub) == Decimal(
-            total_price_rub), f"Actual all orders price - {sum(one_order_price_rub)} RUB, total price - {Decimal(total_price_rub)} RUB"
-        self.log.info(f"All orders price - {sum(one_order_price_rub)} RUB = total price - {Decimal(total_price_rub)} RUB")
-
-    # Total tables - sum by teams
-    def verify_total_team_sum_for_list(self):
-        all_orders_sum_in_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_GENERAL_SUM_IN_EUR_XPATH)
-        one_order_sum_in_eur = [Decimal(sum_in_eur.text) for sum_in_eur in all_orders_sum_in_eur]
-        total_team_sum_in_eur = self.get_element_text(self.orders_all_constants.TOTAL_ALL_TEAMS_SUM_XPATH)
-        assert sum(one_order_sum_in_eur) == Decimal(
-            total_team_sum_in_eur), f"Actual all orders sum in EUR {sum(one_order_sum_in_eur)}, total teams sum in EUR {Decimal(total_team_sum_in_eur)}"
-        self.log.info(f"All orders sum in EUR - {sum(one_order_sum_in_eur)} = total teams sum in EUR - {Decimal(total_team_sum_in_eur)}")
+    def verify_sum_teams_list(self, xpath_total, xpath_list, team_log):
+        total_one_team = self.get_element_text(xpath=xpath_total)
+        if self.is_exist(xpath=xpath_list):
+            all_orders_sum_one_team = self.wait_until_all_displayed(xpath=xpath_list)
+            one_order_sum_one_team = [Decimal(sum_one_team.text) for sum_one_team in all_orders_sum_one_team]
+            assert sum(one_order_sum_one_team) == Decimal(total_one_team), \
+                f"Actual {team_log} orders sum = {sum(one_order_sum_one_team)}, total {team_log} value = {total_one_team}"
+            self.log.info(f"Sum of {team_log} orders - {sum(one_order_sum_one_team)} = total {team_log} value - {total_one_team}")
+        else:
+            assert int(total_one_team) == 0
+            self.log.info(f"The list has no {team_log} orders. Total {team_log} sum = {total_one_team}")
 
     def verify_sum_all_totals_for_teams(self):
         all_totals_sum_in_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.TOTAL_ALL_TEAMS_VALUES_XPATH)
@@ -156,39 +94,18 @@ class OrdersAllPage(BasePage):
             total_team_sum_in_eur), f"Actual all totals sum in EUR {sum(one_total_sum_in_eur)}, total sum in EUR {Decimal(total_team_sum_in_eur)}"
         self.log.info(f"All totals sum in EUR - {sum(one_total_sum_in_eur)} = total sum in EUR - {Decimal(total_team_sum_in_eur)}")
 
-    # Total tables - sum by order type
-
-    def verify_sum_type_content(self):
-        all_orders_sum_type_content = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_TYPE_CONTENT_XPATH)
-        one_order_sum_type_content = [Decimal(sum_type_content.text) for sum_type_content in all_orders_sum_type_content]
-        total_type_content = self.get_element_text(self.orders_all_constants.TOTAL_TYPE_CONTENT_XPATH)
-        assert sum(one_order_sum_type_content) == Decimal(total_type_content), \
-            f"Actual content type orders sum {sum(one_order_sum_type_content)}, total content value {Decimal(total_type_content)}"
-        self.log.info(f"Sum of content orders - {sum(one_order_sum_type_content)} = total content value - {Decimal(total_type_content)}")
-
-    def verify_sum_type_link(self):
-        all_orders_sum_type_link = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_TYPE_LINK_XPATH)
-        one_order_sum_type_link = [Decimal(sum_type_link.text) for sum_type_link in all_orders_sum_type_link]
-        total_type_link = self.get_element_text(self.orders_all_constants.TOTAL_TYPE_LINK_XPATH)
-        assert sum(one_order_sum_type_link) == Decimal(total_type_link), \
-            f"Actual link type orders sum {sum(one_order_sum_type_link)}, total link value {Decimal(total_type_link)}"
-        self.log.info(f"Sum of link orders - {sum(one_order_sum_type_link)} = total link value - {Decimal(total_type_link)}")
-
-    def verify_sum_type_other(self):
-        all_orders_sum_type_other = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_TYPE_OTHER_XPATH)
-        one_order_sum_type_other = [Decimal(sum_type_other.text) for sum_type_other in all_orders_sum_type_other]
-        total_type_other = self.get_element_text(self.orders_all_constants.TOTAL_TYPE_OTHER_XPATH)
-        assert sum(one_order_sum_type_other) == Decimal(total_type_other), \
-            f"Actual other type orders sum {sum(one_order_sum_type_other)}, total other value {Decimal(total_type_other)}"
-        self.log.info(f"Sum of other orders - {sum(one_order_sum_type_other)} = total other value - {Decimal(total_type_other)}")
-
-    def verify_total_type_sum_for_list(self):
-        all_orders_sum_in_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_GENERAL_SUM_IN_EUR_XPATH)
-        one_order_sum_in_eur = [Decimal(sum_in_eur.text) for sum_in_eur in all_orders_sum_in_eur]
-        total_type_sum_in_eur = self.get_element_text(self.orders_all_constants.TOTAL_ALL_TYPES_SUM_XPATH)
-        assert sum(one_order_sum_in_eur) == Decimal(
-            total_type_sum_in_eur), f"Actual all orders sum in EUR {sum(one_order_sum_in_eur)}, total type sum in EUR {Decimal(total_type_sum_in_eur)}"
-        self.log.info(f"All orders sum in EUR - {sum(one_order_sum_in_eur)} = total type sum in EUR - {Decimal(total_type_sum_in_eur)}")
+    # _________________________________Total tables - sum by order type_________________________________
+    def verify_sum_type(self, xpath_total, xpath_list, type_log):
+        total_one_type = self.get_element_text(xpath=xpath_total)
+        if self.is_exist(xpath=xpath_list):
+            all_orders_sum_one_type = self.wait_until_all_displayed(xpath=xpath_list)
+            one_order_sum_one_type = [Decimal(sum_one_type.text) for sum_one_type in all_orders_sum_one_type]
+            assert sum(one_order_sum_one_type) == Decimal(total_one_type), \
+                f"Actual Product Team orders sum {sum(one_order_sum_one_type)}, total Product Team value {Decimal(total_one_type)}"
+            self.log.info(f"Sum of {type_log} orders - {sum(one_order_sum_one_type)} = total {type_log} value - {Decimal(total_one_type)}")
+        else:
+            assert int(total_one_type) == 0
+            self.log.info(f"The list has no {type_log} orders. Total {type_log} sum = {total_one_type}")
 
     def verify_sum_all_totals_for_types(self):
         all_totals_sum_in_eur = self.wait_until_all_displayed(xpath=self.orders_all_constants.TOTAL_ALL_TYPES_VALUES_XPATH)
@@ -198,9 +115,9 @@ class OrdersAllPage(BasePage):
             total_type_sum_in_eur), f"Actual all totals sum in EUR {sum(one_total_sum_in_eur)}, total sum in EUR {Decimal(total_type_sum_in_eur)}"
         self.log.info(f"All totals sum in EUR - {sum(one_total_sum_in_eur)} = total sum in EUR - {Decimal(total_type_sum_in_eur)}")
 
-    # Total tables - total sum in all tables
+    # _________________________________Total tables - total sum in all tables_________________________________
     def verify_all_sum_equals(self):
-        currency_total_sum_in_eur = self.get_element_text(xpath=self.orders_all_constants.TOTAL_ALL_CURRENCIES_SUM_XPATH)
+        currency_total_sum_in_eur = self.get_element_text(xpath=self.orders_all_constants.TOTAL_IN_EUR_ALL_XPATH)
         team_total_sum_in_eur = self.get_element_text(xpath=self.orders_all_constants.TOTAL_ALL_TEAMS_SUM_XPATH)
         type_total_sum_in_eur = self.get_element_text(xpath=self.orders_all_constants.TOTAL_ALL_TYPES_SUM_XPATH)
         assert float(currency_total_sum_in_eur) == float(team_total_sum_in_eur) == float(type_total_sum_in_eur), \

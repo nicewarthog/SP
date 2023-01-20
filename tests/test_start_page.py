@@ -69,7 +69,6 @@ class TestStartPage:
         self.log.info("Sign-In button title is correct")
 
     # Correct Sign In
-
     def test_correct_sign_in_with_button(self, open_start_page):
         """
         Fixture:

@@ -16,10 +16,25 @@ class OrdersAllConst:
                              "li[@class='report-total__list-item ng-star-inserted']/span[contains(text(),'GBP')]/following-sibling::span"
     TOTAL_IN_EUR_RUB_XPATH = ".//div[@class='card-body'][h4[text()='Сумма в EUR']]//" \
                              "li[@class='report-total__list-item ng-star-inserted']/span[contains(text(),'RUB')]/following-sibling::span"
-    TOTAL_ALL_CURRENCIES_SUM_XPATH = ".//div[@class='card-body'][h4[text()='Сумма в EUR']]" \
-                                     "//li[@class='report-total__list-item report-total__list-item_sum ng-star-inserted']/span[2]"
-    TOTAL_ALL_CURRENCIES_VALUES_XPATH = ".//div[@class='card-body'][h4[text()='Сумма в EUR']]" \
-                                        "//li[@class='report-total__list-item ng-star-inserted']//span[2]"
+    TOTAL_IN_EUR_ALL_XPATH = ".//div[@class='card-body'][h4[text()='Сумма в EUR']]" \
+                             "//li[@class='report-total__list-item report-total__list-item_sum ng-star-inserted']/span[2]"
+    TOTAL_IN_EUR_TABLE_VALUES_XPATH = ".//div[@class='card-body'][h4[text()='Сумма в EUR']]" \
+                                      "//li[@class='report-total__list-item ng-star-inserted']//span[2]"
+
+    # Orders List - sum in EUR
+    ORDERS_LIST_EUR_EUR_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'EUR')]]" \
+                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_EUR_UAH_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'UAH')]]" \
+                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_EUR_GBP_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'GBP')]]" \
+                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_EUR_RUB_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'RUB')]]" \
+                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_EUR_USDT_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'USDT')]]" \
+                                 "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_EUR_USD_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'USD ')]]" \
+                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_EUR_ALL_XPATH = ".//mat-cell[contains(@class,'mat-column-sum')]"
 
     # Total Tables - price in currency
     TOTAL_IN_CURRENCY_EUR_XPATH = ".//div[@class='card-body'][h4[contains(text(),'Сумма в валюте')]]//" \
@@ -35,11 +50,97 @@ class OrdersAllConst:
     TOTAL_IN_CURRENCY_RUB_XPATH = ".//div[@class='card-body'][h4[contains(text(),'Сумма в валюте')]]//" \
                                   "li[@class='report-total__list-item ng-star-inserted']/span[contains(text(),'RUB')]/following-sibling::span"
 
+    # Orders List - price in currency
+    ORDERS_LIST_PRICE_EUR_XPATH = ".//mat-cell[contains(text(),'EUR')]"
+    ORDERS_LIST_PRICE_USD_XPATH = ".//mat-cell[contains(text(),'USD ')]"
+    ORDERS_LIST_PRICE_USDT_XPATH = ".//mat-cell[contains(text(),'USDT')]"
+    ORDERS_LIST_PRICE_UAH_XPATH = ".//mat-cell[contains(text(),'UAH')]"
+    ORDERS_LIST_PRICE_GBP_XPATH = ".//mat-cell[contains(text(),'GBP')]"
+    ORDERS_LIST_PRICE_RUB_XPATH = ".//mat-cell[contains(text(),'RUB')]"
+
     # Total Tables - sum by teams
+    # INT
+    TOTAL_TEAMS_ALL_INT_XPATH = ".//span[contains(text(),'All INT')]/following-sibling::span"
+    TOTAL_TEAMS_CORE_TEAM_XPATH = ".//span[contains(text(),'Core Team')]/following-sibling::span"
+    TOTAL_TEAMS_MARKETING_XPATH = ".//span[contains(text(),'Marketing')]/following-sibling::span"
+    TOTAL_TEAMS_MEGADEPH_INT_XPATH = ".//span[contains(text(),'MegaDeph INT')]/following-sibling::span"
+    TOTAL_TEAMS_PL_TEAM_XPATH = ".//span[contains(text(),'PL Team')]/following-sibling::span"
+    TOTAL_TEAMS_SLOTOZILLA_XPATH = ".//span[contains(text(),'Slotozilla Team')]/following-sibling::span"
+    TOTAL_TEAMS_THE_FIRST_INT_XPATH = ".//span[contains(text(),'The_First INT')]/following-sibling::span"
+    TOTAL_TEAMS_X_TEAM_XPATH = ".//span[contains(text(),'X-Team')]/following-sibling::span"
+
+    TOTAL_TEAMS_PRODUCT_TEAM_XPATH = ".//span[contains(text(),'Product Team')]/following-sibling::span"
+    TOTAL_TEAMS_YS_XPATH = ".//span[contains(text(),'YS')]/following-sibling::span"
+
+    TOTAL_TEAMS_SATELLITES_XPATH = ".//span[contains(text(),'Satellites Team')]/following-sibling::span"
+    TOTAL_TEAMS_YS_SATELLITES_XPATH = ".//span[contains(text(),'YS Satellites')]/following-sibling::span"
+
+    # CIS
+    TOTAL_TEAMS_MEGADEPH_CIS_XPATH = ".//span[contains(text(),'MegaDeph CIS')]/following-sibling::span"
+    TOTAL_TEAMS_OTHER_XPATH = ".//span[contains(text(),'Other')]/following-sibling::span"
+    TOTAL_TEAMS_PBN_XPATH = ".//span[contains(text(),'PBN')]/following-sibling::span"
+    TOTAL_TEAMS_THE_FIRST_CIS_XPATH = ".//span[contains(text(),'The_First CIS')]/following-sibling::span"
+
+    TOTAL_TEAMS_TOP_SEO_XPATH = ".//span[contains(text(),'TOP SEO')]/following-sibling::span"
+    TOTAL_TEAMS_MULTI_SEO_XPATH = ".//span[contains(text(),'Multi SEO')]/following-sibling::span"
+
+    TOTAL_TEAMS_ALL_CIS_XPATH = ".//span[contains(text(),'All CIS')]/following-sibling::span"
+    TOTAL_TEAMS_DEV_TEAM_XPATH = ".//span[contains(text(),'Dev team')]/following-sibling::span"
+
+    # All
     TOTAL_ALL_TEAMS_SUM_XPATH = ".//div[@class='card-body'][h4[text()='Сумма в EUR по командам']]" \
                                 "//li[contains(@class,'report-total__list-item_sum')]/span[2]"
     TOTAL_ALL_TEAMS_VALUES_XPATH = ".//div[@class='card-body'][h4[text()='Сумма в EUR по командам']]" \
                                    "//li[@class='report-total__list-item ng-star-inserted']//span[2]"
+
+    # Orders List - sum by teams
+    # INT
+    ORDERS_LIST_TEAMS_ALL_INT_XPATH = ".//mat-row[@role='row'][contains(.,'All INT')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                      "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_CORE_TEAM_XPATH = ".//mat-row[@role='row'][contains(.,'Core Team')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                        "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_MARKETING_XPATH = ".//mat-row[@role='row'][contains(.,'Marketing')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                        "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_MEGADEPH_INT_XPATH = ".//mat-row[@role='row'][contains(.,'MegaDeph INT')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                           "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_PL_TEAM_XPATH = ".//mat-row[@role='row'][contains(.,'PL Team')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                      "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_SLOTOZILLA_XPATH = ".//mat-row[@role='row'][contains(.,'Slotozilla Team')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                         "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_THE_FIRST_INT_XPATH = ".//mat-row[@role='row'][contains(.,'The_First INT')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                            "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_X_TEAM_XPATH = ".//mat-row[@role='row'][contains(.,'X-Team')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                     "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+
+    ORDERS_LIST_TEAMS_PRODUCT_TEAM_XPATH = ".//mat-row[@role='row'][contains(.,'Product Team')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                           "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_YS_XPATH = ".//mat-row[@role='row'][contains(.,'YS')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                 "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+
+    ORDERS_LIST_TEAMS_SATELLITES_XPATH = ".//mat-row[@role='row'][contains(.,'Satellites Team')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                         "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_YS_SATELLITES_XPATH = ".//mat-row[@role='row'][contains(.,'YS Satellites')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                            "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+
+    # CIS
+    ORDERS_LIST_TEAMS_MEGADEPH_CIS_XPATH = ".//mat-row[@role='row'][contains(.,'MegaDeph CIS')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                           "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_OTHER_XPATH = ".//mat-row[@role='row'][contains(.,'Other')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                    "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_PBN_XPATH = ".//mat-row[@role='row'][contains(.,'PBN')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                  "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_THE_FIRST_CIS_XPATH = ".//mat-row[@role='row'][contains(.,'The_First CIS')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                            "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+
+    ORDERS_LIST_TEAMS_TOP_SEO_XPATH = ".//mat-row[@role='row'][contains(.,'TOP SEO')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                      "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_MULTI_SEO_XPATH = ".//mat-row[@role='row'][contains(.,'Multi SEO')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                        "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+
+    ORDERS_LIST_TEAMS_ALL_CIS_XPATH = ".//mat-row[@role='row'][contains(.,'All CIS')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                      "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
+    ORDERS_LIST_TEAMS_DEV_TEAM_XPATH = ".//mat-row[@role='row'][contains(.,'Dev team')]/preceding::mat-row[contains(@class,'element-row')][1]" \
+                                       "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
 
     # Total Tables - sum by order type
     TOTAL_TYPE_CONTENT_XPATH = ".//div[@class='card-body'][h4[contains(text(),'Сумма в EUR по типу расхода')]]" \
@@ -52,29 +153,6 @@ class OrdersAllConst:
                                 "//li[contains(@class,'report-total__list-item_sum')]/span[2]"
     TOTAL_ALL_TYPES_VALUES_XPATH = ".//div[@class='card-body'][h4[text()='Сумма в EUR по типу расхода']]" \
                                    "//li[@class='report-total__list-item ng-star-inserted']//span[2]"
-
-    # Orders List - sum in EUR
-    ORDERS_LIST_GENERAL_SUM_IN_EUR_XPATH = ".//mat-cell[contains(@class,'mat-column-sum')]"
-    ORDERS_LIST_EUR_EUR_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'EUR')]]" \
-                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
-    ORDERS_LIST_EUR_UAH_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'UAH')]]" \
-                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
-    ORDERS_LIST_EUR_GBP_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'GBP')]]" \
-                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
-    ORDERS_LIST_EUR_RUB_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'RUB')]]" \
-                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
-    ORDERS_LIST_EUR_USDT_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'USDT')]]" \
-                                 "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
-    ORDERS_LIST_EUR_USD_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(text(),'USD ')]]" \
-                                "//mat-cell[contains(@class,'mat-column-sum ng-tns-c137')]"
-
-    # Orders List - sum in currency
-    ORDERS_LIST_PRICE_EUR_XPATH = ".//mat-cell[contains(text(),'EUR')]"
-    ORDERS_LIST_PRICE_USD_XPATH = ".//mat-cell[contains(text(),'USD ')]"
-    ORDERS_LIST_PRICE_USDT_XPATH = ".//mat-cell[contains(text(),'USDT')]"
-    ORDERS_LIST_PRICE_UAH_XPATH = ".//mat-cell[contains(text(),'UAH')]"
-    ORDERS_LIST_PRICE_GBP_XPATH = ".//mat-cell[contains(text(),'GBP')]"
-    ORDERS_LIST_PRICE_RUB_XPATH = ".//mat-cell[contains(text(),'RUB')]"
 
     # Orders List - sum by order type
     ORDERS_LIST_TYPE_CONTENT_XPATH = ".//mat-row[contains(@class,'ng-tns-c137')][mat-cell[contains(@class,'mat-column-order_type')]" \
