@@ -16,8 +16,6 @@ class StartPage(BasePage):
         self.header = Header(self.driver)
         from pages.sidebar import Sidebar
         self.sidebar = Sidebar(self.driver)
-        # from pages.orders_all_page import OrdersAllPage
-        # self.order_all_page = OrdersAllPage(self.driver)
 
     # Start Page elements
 
@@ -55,8 +53,6 @@ class StartPage(BasePage):
         self.fill_field(xpath=self.start_page_constants.SIGN_IN_PASSWORD_FIELD_XPATH, value=basic_user.password)
         # Click Sign In button
         self.click(xpath=self.start_page_constants.SIGN_IN_BUTTON_XPATH)
-        # from pages.header import Header
-        # return Header(self.driver)
 
     def sign_in_with_enter(self, basic_user):
         """Sign in as the correct user with Enter key and verify that you are inside"""
@@ -64,8 +60,6 @@ class StartPage(BasePage):
         self.fill_field(xpath=self.start_page_constants.SIGN_IN_LOGIN_FIELD_XPATH, value=basic_user.login)
         # Fill password, press Enter
         self.fill_field(xpath=self.start_page_constants.SIGN_IN_PASSWORD_FIELD_XPATH, value=basic_user.password + Keys.ENTER)
-        # from pages.header import Header
-        # return Header(self.driver)
 
     # Incorrect Sign In
 
