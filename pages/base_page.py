@@ -1,6 +1,7 @@
 import selenium
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 
@@ -57,6 +58,10 @@ class BasePage:
         element = self.wait_until_clickable(xpath=xpath)
         element.clear()
         element.send_keys(value)
+
+    def select_field(self, xpath, value):
+        select = Select(self.wait_until_clickable(xpath=xpath))
+        select.select_by_visible_text(value)
 
     def click(self, xpath):
         """Find and click button"""

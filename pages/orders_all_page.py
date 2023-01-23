@@ -16,7 +16,7 @@ class OrdersAllPage(BasePage):
         from pages.start_page import StartPage
         self.start_page = StartPage(self.driver)
 
-    # _________________________________Elements_________________________________
+    # _________________________________Open page and Elements_________________________________
 
     def verify_orders_all_page_h1(self):
         """Verify the Orders All Page h1 has correct text"""
@@ -62,8 +62,8 @@ class OrdersAllPage(BasePage):
 
     def verify_sum_price_list_usdt(self):
         total_price_usdt = self.get_element_text(xpath=self.orders_all_constants.TOTAL_IN_CURRENCY_USDT_XPATH)
-        if self.is_exist(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_USDT_XPATH):
-            all_orders_price_usdt = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_LIST_PRICE_USDT_XPATH)
+        if self.is_exist(xpath=self.orders_all_constants.ORDERS_PRICE_USDT_XPATH):
+            all_orders_price_usdt = self.wait_until_all_displayed(xpath=self.orders_all_constants.ORDERS_PRICE_USDT_XPATH)
             one_order_price_usdt = [Decimal(price_usdt.text[:-5]) for price_usdt in all_orders_price_usdt]
             assert sum(one_order_price_usdt) == Decimal(total_price_usdt), \
                 f"Actual all orders price - {sum(one_order_price_usdt)} USDT, total price - {total_price_usdt} USDT"
@@ -101,7 +101,7 @@ class OrdersAllPage(BasePage):
             all_orders_sum_one_type = self.wait_until_all_displayed(xpath=xpath_list)
             one_order_sum_one_type = [Decimal(sum_one_type.text) for sum_one_type in all_orders_sum_one_type]
             assert sum(one_order_sum_one_type) == Decimal(total_one_type), \
-                f"Actual Product Team orders sum {sum(one_order_sum_one_type)}, total Product Team value {Decimal(total_one_type)}"
+                f"Actual {type_log} orders sum {sum(one_order_sum_one_type)}, total {type_log} value {Decimal(total_one_type)}"
             self.log.info(f"Sum of {type_log} orders - {sum(one_order_sum_one_type)} = total {type_log} value - {Decimal(total_one_type)}")
         else:
             assert int(total_one_type) == 0
@@ -123,3 +123,37 @@ class OrdersAllPage(BasePage):
         assert float(currency_total_sum_in_eur) == float(team_total_sum_in_eur) == float(type_total_sum_in_eur), \
             f"Currency sum in EUR - {currency_total_sum_in_eur}, teams sum in EUR - {team_total_sum_in_eur}, types sum in EUR - {type_total_sum_in_eur}"
         self.log.info(f"Currency sum - {currency_total_sum_in_eur} = teams sum - {team_total_sum_in_eur} = types sum - {type_total_sum_in_eur}")
+
+    # _________________________________Filters - Order type_________________________________
+
+    def verify_order_type_filter(self):
+        """Verify Order type filter is exist and has correct title"""
+        assert self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_TITLE_XPATH) == self.orders_all_constants.FILTERS_ORDER_TYPE_TITLE_TEXT, \
+            f"Actual message: {self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_TITLE_XPATH)}"
+        self.log.info(f"Order type filter is exist and has correct text - {self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_TITLE_XPATH)}")
+
+    def verify_order_type_filter_values(self):
+        """Verify Order type filter has correct values - Link, Content, Other"""
+        self.click(self.orders_all_constants.FILTERS_ORDER_TYPE_XPATH)
+        assert self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_LINK_XPATH) == self.orders_all_constants.FILTERS_ORDER_TYPE_LINK_TEXT, \
+            f"Actual message: {self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_LINK_XPATH)}"
+        assert self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_CONTENT_XPATH) == self.orders_all_constants.FILTERS_ORDER_TYPE_CONTENT_TEXT, \
+            f"Actual message: {self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_CONTENT_XPATH)}"
+        assert self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_OTHER_XPATH) == self.orders_all_constants.FILTERS_ORDER_TYPE_OTHER_TEXT, \
+            f"Actual message: {self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_OTHER_XPATH)}"
+        self.log.info(f"Order type filter has {self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_LINK_XPATH)}, "
+                      f"{self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_CONTENT_XPATH)}, "
+                      f"{self.get_element_text(self.orders_all_constants.FILTERS_ORDER_TYPE_OTHER_XPATH)} values")
+
+    def verify_order_type_filtration(self, select_type, type_text, type_log):
+        """Verify correctly filtration for Order type filter by values - Link, Content, Other """
+        self.click(self.orders_all_constants.FILTERS_ORDER_TYPE_XPATH)
+        self.click(xpath=select_type)
+        if self.is_exist(xpath=self.orders_all_constants.H2_NOT_FOUND_XPATH):
+            assert self.get_element_text(self.orders_all_constants.H2_NOT_FOUND_XPATH) == self.orders_all_constants.H2_NOT_FOUND_TEXT
+            self.log.info(f"The list has no orders with type {type_log}. {self.get_element_text(self.orders_all_constants.H2_NOT_FOUND_XPATH)}")
+        else:
+            all_orders_list = self.wait_until_all_displayed(xpath=self.orders_all_constants.FILTERS_ORDER_TYPE_CELLS_XPATH)
+            for one_order in all_orders_list:
+                assert one_order.text[:4].lower() == type_text[:4].lower(), f"Actual Order type value - {one_order.text[:4].lower()}"
+            self.log.info(f"The list has {len(all_orders_list)} orders. All orders in the list have type - {type_log}")
