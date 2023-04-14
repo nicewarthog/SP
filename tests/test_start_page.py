@@ -90,7 +90,7 @@ class TestStartPage:
 
         # Verify the username in header
         open_header.verify_success_sign_in(basic_user.login)
-        self.log.info(f"Account name {basic_user.login} was verified, Sign In is successfully")
+        self.log.info(f"Account name {basic_user.login} was verified, Sign In with button is successfully")
 
     def test_correct_sign_in_with_enter(self, open_start_page):
         """
@@ -113,7 +113,7 @@ class TestStartPage:
 
         # Verify the username in header
         open_header.verify_success_sign_in(basic_user.login)
-        self.log.info(f"Account name {basic_user.login} was verified, Sign In is successfully")
+        self.log.info(f"Account name {basic_user.login} was verified, Sign In with Enter key is successfully")
 
     def test_sign_in_with_spaces(self, open_start_page):
         """
@@ -136,7 +136,29 @@ class TestStartPage:
 
         # Verify the username in header
         open_header.verify_success_sign_in(basic_user.login.replace(" ", ""))
-        self.log.info(f"Account name {basic_user.login} was verified, Sign In is successfully")
+        self.log.info(f"Spaces disappear. Account name {basic_user.login} was verified, Sign In is successfully")
+
+    def test_sign_in_login_uppercase(self, open_start_page):
+        """
+        Fixture:
+        - Create driver, open page
+        Steps:
+        - Fill Login with uppercase
+        - Fill Password with lowercase, click Sign In button
+        - Verify successful Sign In
+        """
+
+        # Fill Login and Password with spaces before and after them
+        basic_user = User(login="SEOPAY-QA-CEO", password="uGwql6dqvC9fAFwC")
+        open_start_page.sign_in_with_button(basic_user)
+
+        # Move to the Header
+        open_header = open_start_page.from_start_page_to_header()
+        self.log.info(f"Header is opened")
+
+        # Verify the username in header
+        open_header.verify_success_sign_in(basic_user.login.lower())
+        self.log.info(f"Account name {basic_user.login.lower()} was verified, Sign In with login in uppercase order is successfully")
 
     # Incorrect Sign In
     def test_empty_login_with_focus(self, open_start_page):
@@ -248,3 +270,39 @@ class TestStartPage:
         # Verify message for incorrect credentials
         open_start_page.verify_incorrect_credentials_message()
         self.log.info(f"Password {basic_user.password} is incorrect. Error message appears")
+
+    def test_incorrect_password_uppercase(self, open_start_page):
+        """
+        Fixture:
+        - Create driver, open page
+        Steps:
+        - Fill correct login, correct password with uppercase order
+        - Click Sign In button, verify error message
+        """
+
+        # Log in with incorrect login
+        basic_user = User()
+        basic_user.random_incorrect_user(login="seopay-qa-ceo", password="UGWQL6DQVC9FAFWC")
+        open_start_page.sign_in_with_button(basic_user)
+
+        # Verify message for incorrect credentials
+        open_start_page.verify_incorrect_credentials_message()
+        self.log.info(f" Correct password in uppercase order {basic_user.password} is incorrect. Error message appears")
+
+    def test_incorrect_password_lowercase(self, open_start_page):
+        """
+        Fixture:
+        - Create driver, open page
+        Steps:
+        - Fill correct login, correct password with lowercase order
+        - Click Sign In button, verify error message
+        """
+
+        # Log in with incorrect login
+        basic_user = User()
+        basic_user.random_incorrect_user(login="seopay-qa-ceo", password="ugwql6dqvc9fafwc")
+        open_start_page.sign_in_with_button(basic_user)
+
+        # Verify message for incorrect credentials
+        open_start_page.verify_incorrect_credentials_message()
+        self.log.info(f" Correct password in lowercase order {basic_user.password} is incorrect. Error message appears")
