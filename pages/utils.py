@@ -17,6 +17,7 @@ def random_str(length=5):
 
 
 # WAIT
+
 def wait_until_ok(timeout=5, period=0.5):
     """Reties until OK"""
 
