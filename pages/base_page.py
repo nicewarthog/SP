@@ -55,6 +55,12 @@ class BasePage:
         return self.waiter.until(method=expected_conditions.element_to_be_clickable((By.XPATH, xpath)),
                                  message=f"XPATH '{xpath}' is not clickable or cannot be found")
 
+    def action_chains_move_to_element(self, xpath):
+        """Move to element, click and perform next actions"""
+        action_chains = ActionChains(self.driver)
+        action_chains.move_to_element(self.wait_until_displayed(xpath=xpath))
+        return action_chains
+
     def action_chains_move_and_click(self, xpath):
         """Move to element, click and perform next actions"""
         action_chains = ActionChains(self.driver)
