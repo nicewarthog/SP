@@ -1,0 +1,10 @@
+class StPgSignInConst:
+    SIGN_IN_LOGIN_FIELD_XPATH = ".//input[@id='mat-input-0']"
+    SIGN_IN_PASSWORD_FIELD_XPATH = ".//input[@id='mat-input-1']"
+    SIGN_IN_BUTTON_TEXT = "Увійти"
+    SIGN_IN_BUTTON_XPATH = f".//span[contains(text(),'{SIGN_IN_BUTTON_TEXT}')]"
+    EMPTY_LOGIN_MESSAGE_XPATH = ".//mat-error[@id='mat-mdc-error-0']"
+    EMPTY_LOGIN_PASSWORD_MESSAGE_TEXT = "Має бути заповнено"
+    EMPTY_PASSWORD_MESSAGE_XPATH = ".//mat-error[@id='mat-mdc-error-0']"
+    INCORRECT_CREDENTIALS_MESSAGE_TEXT = "Incorrect login or password."
+    INCORRECT_CREDENTIALS_MESSAGE_XPATH = f".//div[contains(text(),'{INCORRECT_CREDENTIALS_MESSAGE_TEXT}')]"
